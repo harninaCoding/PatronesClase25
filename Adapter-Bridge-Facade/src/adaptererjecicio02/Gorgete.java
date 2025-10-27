@@ -1,5 +1,6 @@
 package adaptererjecicio02;
 
 public class Gorgete {
-	int numeroA,numeroB;
+	public int numeroA;
+	public int numeroB;
 }
