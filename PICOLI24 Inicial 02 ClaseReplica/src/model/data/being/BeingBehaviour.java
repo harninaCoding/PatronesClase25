@@ -13,7 +13,6 @@ public class BeingBehaviour implements Behaviour {
 	@Override
 	public void feed(int salary) {
 		being.recalculateLifeExpectancy(salary);
-
 	}
 
 }

@@ -1,10 +1,12 @@
 package model.data.being;
 
 public class YoungBehaviour implements Behaviour {
-	Young being;
-
+	Being being;
+	private float developmentFactor;
+	private float rightDevelopmentFactor=5.55f;
+	private float minimunDevelopmentFactor=rightDevelopmentFactor*10;
 	
-	public YoungBehaviour(Young being) {
+	public YoungBehaviour(Being being) {
 		super();
 		this.being = being;
 	}
@@ -14,13 +16,28 @@ public class YoungBehaviour implements Behaviour {
 	public void feed(int salary) {
 		  if (salary >= being.getVitalNecesity()) {
 	            // Crecimiento completo
-	            being.setDevelopmentFactor(being.getDevelopmentFactor()+ being.getRightDevelopmentFactor());
+	            setDevelopmentFactor(getDevelopmentFactor()+ getRightDevelopmentFactor());
 	        } else if (salary > 0) {
 	            // Crecimiento parcial
-	            double growthFactor = ((float)salary / being.getVitalNecesity()) * being.getRightDevelopmentFactor();
-	            being.setDevelopmentFactor((float) (being.getDevelopmentFactor()+ growthFactor));
+	            double growthFactor = ((float)salary / being.getVitalNecesity()) * getRightDevelopmentFactor();
+	            setDevelopmentFactor((float) (getDevelopmentFactor()+ growthFactor));
 	        }
+		  if(being.getCurrentAge()==being.ADULTAGE&&developmentFactor<minimunDevelopmentFactor)
+			  being.setCurrentAge((int) (being.getLifeExpectancy()+1));
 
 	}
+	public float getRightDevelopmentFactor() {
+		return rightDevelopmentFactor;
+	}
 
+	public float getMinimunDevelopmentFactor() {
+		return minimunDevelopmentFactor;
+	}
+	public float getDevelopmentFactor() {
+		return developmentFactor;
+	}
+
+	public void setDevelopmentFactor(float developmentFactor) {
+		this.developmentFactor = developmentFactor;
+	}
 }
