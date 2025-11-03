@@ -3,6 +3,14 @@ package model.data.being;
 public class Young extends Being {
 	private float developmentFactor;
 	private float rightDevelopmentFactor=5.55f;
+	public float getRightDevelopmentFactor() {
+		return rightDevelopmentFactor;
+	}
+
+	public float getMinimunDevelopmentFactor() {
+		return minimunDevelopmentFactor;
+	}
+
 	private float minimunDevelopmentFactor=rightDevelopmentFactor*10;
 	
 	public Young(float lifeExpectancy) {
@@ -19,19 +27,6 @@ public class Young extends Being {
 		if(currentAge==adultAge&&developmentFactor<minimunDevelopmentFactor)
 			setCurrentAge((int) (getLifeExpectancy()+1));
 		return live;
-	}
-	
-	// Esto solo los menores
-	@Override
-	public void feed(int salary) {
-		   if (salary >= getVitalNecesity()) {
-	            // Crecimiento completo
-	            developmentFactor += rightDevelopmentFactor;
-	        } else if (salary > 0) {
-	            // Crecimiento parcial
-	            double growthFactor = ((float)salary / getVitalNecesity()) * rightDevelopmentFactor;
-	            developmentFactor += growthFactor;
-	        }
 	}
 
 	public float getDevelopmentFactor() {

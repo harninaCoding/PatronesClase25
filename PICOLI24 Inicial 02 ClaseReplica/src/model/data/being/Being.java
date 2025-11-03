@@ -11,6 +11,7 @@ public class Being {
 	private float lifeExpectancy;
 	protected int currentAge = 0;
 	protected static int vitalNecesity = 100;
+	Behaviour behaviour;
 
 	public Being(float lifeExpectancy) {
 		super();
@@ -26,6 +27,15 @@ public class Being {
 		this.currentAge = ser.currentAge;
 		this.lifeExpectancy = ser.lifeExpectancy;
 		this.vitalNecesity = ser.vitalNecesity;
+		this.behaviour=ser.getBehaviour();
+	}
+	
+	public Behaviour getBehaviour() {
+		return behaviour;
+	}
+
+	public void setBehaviour(Behaviour behaviour) {
+		this.behaviour = behaviour;
 	}
 
 	public float getLifeExpectancy() {
@@ -57,7 +67,7 @@ public class Being {
 	}
 
 	public boolean live(int salary) {
-		this.feed(salary);
+		behaviour.feed(salary);
 		this.aging();
 		return isAlive();
 	}
@@ -75,9 +85,7 @@ public class Being {
 		}
 	}
 
-	public void feed(int salary) {
-		recalculateLifeExpectancy(salary);
-	}
+
 
 	public boolean becomeOlder() {
 		return isAlive() && currentAge == ancientAge;

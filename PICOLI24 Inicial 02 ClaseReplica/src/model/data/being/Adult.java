@@ -14,6 +14,7 @@ public class Adult extends Being {
 	// nv 100
 	// ahorros 10
 	// sueldo 80
+	@Override
 	public void feed(int amount) {
 		int total = 0;
 		if (currentAge < ancientAge) {
