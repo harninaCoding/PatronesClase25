@@ -48,12 +48,8 @@ public class Being {
 		this.currentAge = currentAge;
 	}
 
-	protected boolean aging() {
-		if (isAlive())
-			this.currentAge++;
-		// TODO tengo que ver si un menor pasa a ser adulto o no
-		// y para que pase de adulto a anciano
-		return isAlive();
+	protected void aging() {
+		this.currentAge++;
 	}
 
 	public boolean isAlive() {
@@ -62,7 +58,8 @@ public class Being {
 
 	public boolean live(int salary) {
 		this.feed(salary);
-		return this.aging();
+		this.aging();
+		return isAlive();
 	}
 
 	protected void recalculateLifeExpectancy(int salary) {
@@ -78,7 +75,7 @@ public class Being {
 		}
 	}
 
-	private void feed(int salary) {
+	public void feed(int salary) {
 		recalculateLifeExpectancy(salary);
 	}
 

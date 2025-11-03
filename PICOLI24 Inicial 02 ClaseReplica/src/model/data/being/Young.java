@@ -15,15 +15,15 @@ public class Young extends Being {
 
 	@Override
 	public boolean live(int salary) {
-		grow(salary);
-		aging();
+		boolean live = super.live(salary);
 		if(currentAge==adultAge&&developmentFactor<minimunDevelopmentFactor)
 			setCurrentAge((int) (getLifeExpectancy()+1));
-		return isAlive();
+		return live;
 	}
 	
 	// Esto solo los menores
-	public void grow(int salary) {
+	@Override
+	public void feed(int salary) {
 		   if (salary >= getVitalNecesity()) {
 	            // Crecimiento completo
 	            developmentFactor += rightDevelopmentFactor;
