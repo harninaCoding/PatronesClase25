@@ -5,8 +5,8 @@ import utiles.Utiles;
 public class Being {
 	private static final int maxLife = 120;
 	private static final int minLife = 0;
-	public static final int adultAge = 18;
-	public static final int ancientAge= 65;
+	public static final int ADULTAGE = 18;
+	public static final int ANCIENTAGE= 65;
 
 	private float lifeExpectancy;
 	protected int currentAge = 0;
@@ -88,11 +88,11 @@ public class Being {
 
 
 	public boolean becomeOlder() {
-		return isAlive() && currentAge == ancientAge;
+		return isAlive() && currentAge == ANCIENTAGE;
 	}
 
 	public boolean becomeAdult() {
-		return isAlive() && currentAge == adultAge;
+		return isAlive() && currentAge == ADULTAGE;
 	}
 
 	public int getVitalNecesity() {

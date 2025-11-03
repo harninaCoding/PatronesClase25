@@ -15,16 +15,18 @@ public class Young extends Being {
 	
 	public Young(float lifeExpectancy) {
 		super(lifeExpectancy);
+		setBehaviour(new YoungBehaviour(this));
 	}
 	
 	public Young() {
 		super();
+		setBehaviour(new YoungBehaviour(this));
 	}
 
 	@Override
 	public boolean live(int salary) {
 		boolean live = super.live(salary);
-		if(currentAge==adultAge&&developmentFactor<minimunDevelopmentFactor)
+		if(currentAge==ADULTAGE&&developmentFactor<minimunDevelopmentFactor)
 			setCurrentAge((int) (getLifeExpectancy()+1));
 		return live;
 	}
