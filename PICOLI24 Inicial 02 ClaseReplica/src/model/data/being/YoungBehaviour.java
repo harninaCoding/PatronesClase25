@@ -1,6 +1,8 @@
 package model.data.being;
 
-public class YoungBehaviour implements Behaviour {
+import java.util.Optional;
+
+public class YoungBehaviour implements Behaviour,CheckableBehaviour {
 	Being being;
 	private float developmentFactor;
 	private float rightDevelopmentFactor=5.55f;
@@ -10,8 +12,18 @@ public class YoungBehaviour implements Behaviour {
 		super();
 		this.being = being;
 	}
+	
+	@Override
+	public Optional<CheckableBehaviour> getCheckable() {
+		return Optional.of(this);
+	}
 
 
+	@Override
+	public void checkChangeBehaviour() {
+		if(being.becomeAdult()) being.setBehaviour(new AdultBehaviour(being));
+	}
+	
 	@Override
 	public void feed(int salary) {
 		  if (salary >= being.getVitalNecesity()) {
@@ -40,4 +52,8 @@ public class YoungBehaviour implements Behaviour {
 	public void setDevelopmentFactor(float developmentFactor) {
 		this.developmentFactor = developmentFactor;
 	}
+
+	
+
+	
 }

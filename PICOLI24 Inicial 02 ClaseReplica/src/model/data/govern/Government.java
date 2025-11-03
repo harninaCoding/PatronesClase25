@@ -2,13 +2,8 @@ package model.data.govern;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.stream.Collectors;
 
-import model.data.being.Adult;
 import model.data.being.Being;
-import model.data.being.ControlBeing;
 
 /**
  * En esta version vamos a ver un estado que solo se preocupa
@@ -22,7 +17,6 @@ public class Government {
 	private ArrayList<Being> youngs = new ArrayList<>();
 	private ArrayList<Being> adults = new ArrayList<>();
 	private ArrayList<Being> ancients = new ArrayList<>();
-	private ControlBeing controlBeing;
 
 	private int initialPopulation = 100;
 
@@ -44,46 +38,26 @@ public class Government {
 		all.add(youngs);
 		all.add(adults);
 		all.add(ancients);
-		controlBeing = new ControlBeing();
 		raisePopulation();
 	}
 
 	private void raisePopulation() {
 		for (int i = 0; i < initialPopulation; i++) {
-			youngs.add(controlBeing.createBeing());
+			youngs.add(new Being());
 		}
 	}
 
 	private void raisePopulation(int lifeExpenctancy) {
 		for (int i = 0; i < initialPopulation; i++) {
-			youngs.add(controlBeing.createBeing(lifeExpenctancy));
+			youngs.add(new Being(lifeExpenctancy));
 		}
 	}
 
 	public void developLand(int years) {
 		for (int i = 0; i < years; i++) {
 			feed();
-			becomeOlder();
 			bury();
 		}
-	}
-
-	private void becomeOlder() {
-		becomeOlder(youngs, adults, Adult.class);
-		becomeOlder(adults, ancients, Being.class);
-
-	}
-
-	public void becomeOlder(List<Being> source, List<Being> destination, Class type) {
-		  Iterator<Being> iterator = source.iterator();
-		    while (iterator.hasNext()) {
-		        Being being = iterator.next();
-		        Being olderBeing = controlBeing.controlAges(being);
-		        if (type.isInstance(olderBeing)) {
-		            iterator.remove();  // Elimina de forma segura el elemento de 'source'
-		            destination.add(olderBeing);  // Agrega el elemento a 'destination'
-		        }
-		    }
 	}
 
 	private void bury() {

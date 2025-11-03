@@ -19,8 +19,8 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </interface>  
-  <class id="3" language="java" name="model.data.being.BeingBehaviour" project="PICOLI24 Inicial 02 ClaseReplica" 
-    file="/PICOLI24 Inicial 02 ClaseReplica/src/model/data/being/BeingBehaviour.java" binary="false" 
+  <class id="3" language="java" name="model.data.being.AncientBehaviour" project="PICOLI24 Inicial 02 ClaseReplica" 
+    file="/PICOLI24 Inicial 02 ClaseReplica/src/model/data/being/AncientBehaviour.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="321" y="107"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

@@ -4,9 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import model.data.being.Adult;
 import model.data.being.Being;
-import model.data.being.Young;
 import utiles.Utiles;
 
 class seresTest {
@@ -14,7 +12,7 @@ class seresTest {
 	void testVida() {
 		//activa o desactiva los mensajes 
 		Utiles.active=false;
-		Being being=new Young(100f);
+		Being being=new Being(100f);
 		Utiles.printLog(being.toString());
 		Utiles.printLog("esperanza vida"+being.getLifeExpectancy());
 		Utiles.printLog(" necesidad vital"+being.getVitalNecesity());
@@ -25,7 +23,7 @@ class seresTest {
 			//habido un cambio
 			if(being.becomeAdult()) {
 				Utiles.printLog();
-				being=new Adult(being);
+				being=new Being(being);
 				Utiles.printLog(being.toString());
 			}
 			if(being.becomeOlder()){
@@ -39,7 +37,7 @@ class seresTest {
 	}
 	@Test
 	void testalimentacion() {
-		Being being=new Young(100f);
+		Being being=new Being(100f);
 		Utiles.printLog(being.toString());
 		float esperanzaVidaInicial = being.getLifeExpectancy();
 		Utiles.printLog("esperanza vida"+esperanzaVidaInicial);
@@ -52,7 +50,7 @@ class seresTest {
 			//habido un cambio
 			if(being.becomeAdult()) {
 				Utiles.printLog();
-				being=new Adult(being);
+				being=new Being(being);
 				Utiles.printLog(being.toString());
 			}
 			if(being.becomeOlder()){

@@ -1,5 +1,7 @@
 package model.data.being;
 
+import java.util.Optional;
+
 import utiles.Utiles;
 
 public class Being {
@@ -16,11 +18,11 @@ public class Being {
 	public Being(float lifeExpectancy) {
 		super();
 		this.lifeExpectancy = lifeExpectancy;
+		setBehaviour(new YoungBehaviour(this));
 	}
 
 	public Being() {
-		super();
-		lifeExpectancy = calculateLifeExpectancy(minLife, maxLife);
+		this(calculateLifeExpectancy(minLife, maxLife));
 	}
 
 	public Being(Being ser) {
@@ -46,7 +48,7 @@ public class Being {
 		this.lifeExpectancy = lifeExpectancy;
 	}
 
-	private int calculateLifeExpectancy(int minimun, int maximum) {
+	private static int calculateLifeExpectancy(int minimun, int maximum) {
 		return Utiles.dameNumero(maximum);
 	}
 
@@ -67,8 +69,10 @@ public class Being {
 	}
 
 	public boolean live(int salary) {
-		behaviour.feed(salary);
 		this.aging();
+		behaviour.feed(salary);
+		Optional<CheckableBehaviour> checkable = behaviour.getCheckable();
+		if(checkable.isPresent()) checkable.get().checkChangeBehaviour();
 		return isAlive();
 	}
 

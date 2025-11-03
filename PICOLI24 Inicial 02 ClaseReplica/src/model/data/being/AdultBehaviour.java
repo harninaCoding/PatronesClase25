@@ -1,13 +1,27 @@
 package model.data.being;
 
-public class AdultBehaviour implements Behaviour {
-	Adult being;
+import java.util.Optional;
 
-	public AdultBehaviour(Adult being) {
+public class AdultBehaviour implements Behaviour,CheckableBehaviour {
+	Being being;
+	private long savings;
+	private boolean active;
+
+	public AdultBehaviour(Being being) {
 		super();
 		this.being = being;
+		savings=0;
+		active=false;
 	}
-
+	@Override
+	public Optional<CheckableBehaviour> getCheckable() {
+		return Optional.of(this);
+	}
+	
+	@Override
+	public void checkChangeBehaviour() {
+		if(being.becomeOlder()) being.setBehaviour(new AncientBehaviour(being));
+	}
 	@Override
 	public void feed(int salary) {
 		int total = 0;
@@ -15,16 +29,33 @@ public class AdultBehaviour implements Behaviour {
 			// sueldo es la cantidad
 			int resto = salary - being.getVitalNecesity();
 			// resto sera -20
-			being.setSavings(being.getSavings()+resto);
+			setSavings(getSavings()+resto);
 			// ahorros -10
-			if (being.getSavings() < 0) {
-				total = (int) (being.getVitalNecesity() - being.getSavings());
-				being.setSavings(0);
+			if (getSavings() < 0) {
+				total = (int) (being.getVitalNecesity() - getSavings());
+				setSavings(0);
 			}
 		} else {
 			total = salary;
 		}
 		being.recalculateLifeExpectancy(total);
 	}
+	public long getSavings() {
+		return savings;
+	}
 
+	public void setSavings(long savings) {
+		this.savings = savings;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+	
+
+	
 }
