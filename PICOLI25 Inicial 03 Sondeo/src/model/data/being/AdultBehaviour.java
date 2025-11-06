@@ -20,10 +20,7 @@ public class AdultBehaviour implements Behaviour,CheckableBehaviour {
 	
 	@Override
 	public void checkChangeBehaviour() {
-		if(being.becomeOlder()) {
-			being.setBehaviour(new AncientBehaviour(being));
-			being.promoteToAncient();
-		}
+		if(being.becomeOlder()) being.setBehaviour(new AncientBehaviour(being));
 	}
 	@Override
 	public void feed(int salary) {
