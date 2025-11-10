@@ -9,5 +9,6 @@ public class ClienteConFacade {
 		facade.grabar(socio);
 		///
 		facade.borrarLibro(libro.id);
+		facade.borrarSocio(socio.id);
 	}
 }

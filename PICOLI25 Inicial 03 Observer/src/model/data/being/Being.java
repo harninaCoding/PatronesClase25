@@ -12,58 +12,53 @@ public class Being {
 	public static final int ADULTAGE = 18;
 	public static final int ANCIENTAGE = 65;
 
-
 	private float lifeExpectancy;
 	protected int currentAge = 0;
 	protected static int vitalNecesity = 100;
 	Behaviour behaviour;
-	//patron observer
+	// patron observer
 	PropertyChangeSupport propertyAdultChangeSupport;
 	PropertyChangeSupport propertyAncientChangeSupport;
-	//patron observer
-	
+	// patron observer
+
 	public Being(float lifeExpectancy) {
 		super();
 		this.lifeExpectancy = lifeExpectancy;
 		setBehaviour(new YoungBehaviour(this));
-		//patron observer
-		propertyAdultChangeSupport=new PropertyChangeSupport(this);
-		propertyAncientChangeSupport=new PropertyChangeSupport(this);
-		//patron observer
+		// patron observer
+		propertyAdultChangeSupport = new PropertyChangeSupport(this);
+		propertyAncientChangeSupport = new PropertyChangeSupport(this);
+		// patron observer
 	}
 
-	// Observer
-		public void addAdultPropertyChangeListener(PropertyChangeListener listener) {
-			propertyAdultChangeSupport.addPropertyChangeListener(listener);
-		}
-
-		public void removeAdultPropertyChangeListener(PropertyChangeListener listener) {
-			propertyAdultChangeSupport.removePropertyChangeListener(listener);
-		}
-		public void addAncientPropertyChangeListener(PropertyChangeListener listener) {
-			propertyAncientChangeSupport.addPropertyChangeListener(listener);
-		}
-		
-		public void removeAncientPropertyChangeListener(PropertyChangeListener listener) {
-			propertyAncientChangeSupport.removePropertyChangeListener(listener);
-		}
-	// Observer
-	public void promoteToAdult() {
-		this.propertyAdultChangeSupport.firePropertyChange("adult", null, this);
-	}
-	public void promoteToAncient() {
-		this.propertyAncientChangeSupport.firePropertyChange("ancient",null,this);
-	}
-	
 	public Being() {
 		this(calculateLifeExpectancy(minLife, maxLife));
 	}
 
-	public Being(Being ser) {
-		this.currentAge = ser.currentAge;
-		this.lifeExpectancy = ser.lifeExpectancy;
-		this.vitalNecesity = ser.vitalNecesity;
-		this.behaviour = ser.getBehaviour();
+	// Observer
+	public void addAdultPropertyChangeListener(PropertyChangeListener listener) {
+		propertyAdultChangeSupport.addPropertyChangeListener(listener);
+	}
+
+	public void removeAdultPropertyChangeListener(PropertyChangeListener listener) {
+		propertyAdultChangeSupport.removePropertyChangeListener(listener);
+	}
+
+	public void addAncientPropertyChangeListener(PropertyChangeListener listener) {
+		propertyAncientChangeSupport.addPropertyChangeListener(listener);
+	}
+
+	public void removeAncientPropertyChangeListener(PropertyChangeListener listener) {
+		propertyAncientChangeSupport.removePropertyChangeListener(listener);
+	}
+
+	// Observer
+	public void promoteToAdult() {
+		this.propertyAdultChangeSupport.firePropertyChange("adult", null, this);
+	}
+
+	public void promoteToAncient() {
+		this.propertyAncientChangeSupport.firePropertyChange("ancient", null, this);
 	}
 
 	public Behaviour getBehaviour() {
@@ -100,14 +95,6 @@ public class Being {
 
 	public boolean isAlive() {
 		return this.currentAge <= this.lifeExpectancy;
-	}
-
-	public boolean isAdult() {
-		return getCurrentAge() >= ADULTAGE;
-	}
-
-	public boolean isAncient() {
-		return getCurrentAge() >= ANCIENTAGE;
 	}
 
 	public boolean live(int salary) {
