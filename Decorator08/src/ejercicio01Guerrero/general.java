@@ -6,9 +6,21 @@ class general {
 
 	@Test
 	void test() {
-		Guerrero guerrero=new Guerrero();
-		System.out.println(guerrero.mostrarFuerza());
-		System.out.println(guerrero.mostrarArmadura());
+		Personaje guerrero=new Guerrero();
+		System.out.println("fuerza:"+guerrero.mostrarFuerza());
+		System.out.println("armadura: "+guerrero.mostrarArmadura());
+		guerrero=new Armadura(guerrero);
+		System.out.println("fuerza:"+guerrero.mostrarFuerza());
+		System.out.println("armadura: "+guerrero.mostrarArmadura());
+		guerrero=new Armadura(guerrero);
+		System.out.println("fuerza:"+guerrero.mostrarFuerza());
+		System.out.println("armadura: "+guerrero.mostrarArmadura());
+		guerrero=new Fuerza(guerrero);
+		System.out.println("fuerza:"+guerrero.mostrarFuerza());
+		System.out.println("armadura: "+guerrero.mostrarArmadura());
+		guerrero=new Fuerza(guerrero);
+		System.out.println("fuerza:"+guerrero.mostrarFuerza());
+		System.out.println("armadura: "+guerrero.mostrarArmadura());
 	}
 
 }
