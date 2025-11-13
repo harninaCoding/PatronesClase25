@@ -50,7 +50,7 @@ public class Goverment {
 
 	private void abrirPeriodoActual(float incremento) {
 		produccionSolicitada = calculaDemanda(incremento);
-		long diferencia = produccionSolicitada - calcularProduccionPotencial();
+		long diferencia = produccionSolicitada - calcularProduccionTotal();
 		gestionEmpleados(diferencia);
 		gestionNacimientos();
 	}
