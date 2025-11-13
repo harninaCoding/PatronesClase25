@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-
 import model.data.being.Being;
 
 public class Goverment {
@@ -174,8 +173,8 @@ public class Goverment {
 	private void raisePopulation(int initialPopulation, int lifeExpenctancy) {
 		for (int i = 0; i < initialPopulation; i++) {
 			Being e = new Being(lifeExpenctancy);
-			e.addPropertyAdultChangeListener(adultChangeListener);
-			e.addPropertyAncientChangeListener(ancientChangeListener);
+			e.addAdultPropertyChangeListener(adultChangeListener);
+			e.addAncientPropertyChangeListener(ancientChangeListener);
 			youngs.add(e);
 		}
 	}
@@ -183,8 +182,8 @@ public class Goverment {
 	private void raisePopulation(int initialPopulation) {
 		for (int i = 0; i < initialPopulation; i++) {
 			Being e = new Being();
-			e.addPropertyAdultChangeListener(adultChangeListener);
-			e.addPropertyAncientChangeListener(ancientChangeListener);
+			e.addAdultPropertyChangeListener(adultChangeListener);
+			e.addAncientPropertyChangeListener(ancientChangeListener);
 			youngs.add(e);
 		}
 	}

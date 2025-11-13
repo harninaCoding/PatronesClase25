@@ -8,16 +8,13 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import model.data.being.Adult;
 import model.data.being.Being;
-import model.data.being.Young;
-import model.data.goverment.Goverment;
 
 public class BecomeOlderTest {
 
     @Test
     void testBecomeOlder() {
-        // Crea instancias de Being y clases específicas para el test
+        // Crea instancias de Being y clases especï¿½ficas para el test
         Being youngBeing = new Being();  // Supongamos que YoungBeing es una subclase de Being
         Being youngBeing2 = new Being(30);  // Supongamos que YoungBeing es una subclase de Being
 
@@ -38,9 +35,9 @@ public class BecomeOlderTest {
 //        State classUnderTest = new State(0); // reemplaza con la clase que contiene becomeOlder
 
         // Verifica los resultados
-        assertTrue(destination.size()==1, "El adulto debería haber sido movido a 'destination'");
-        assertTrue(source.size()==1, "El adulto debería haber sido eliminado de 'source'");
-        assertTrue(source.contains(youngBeing), "El joven debería permanecer en 'source'");
-        assertFalse(source.contains(youngBeing2), "El joven no debería estar en 'destination'");
+        assertTrue(destination.size()==1, "El adulto deberï¿½a haber sido movido a 'destination'");
+        assertTrue(source.size()==1, "El adulto deberï¿½a haber sido eliminado de 'source'");
+        assertTrue(source.contains(youngBeing), "El joven deberï¿½a permanecer en 'source'");
+        assertFalse(source.contains(youngBeing2), "El joven no deberï¿½a estar en 'destination'");
     }
 }

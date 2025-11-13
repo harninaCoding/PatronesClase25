@@ -4,9 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import model.data.being.Adult;
 import model.data.being.Being;
-import model.data.being.Young;
 import utiles.Utiles;
 
 class seresTest {

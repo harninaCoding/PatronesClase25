@@ -2,44 +2,71 @@ package model.data.being;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.Optional;
 
 import utiles.Utiles;
 
 public class Being {
 	private static final int maxLife = 120;
 	private static final int minLife = 0;
-	public static final int adultAge = 18;
-	public static final int ancientAge = 65;
-	private Behaviour behavior;
+	public static final int ADULTAGE = 18;
+	public static final int ANCIENTAGE = 65;
+
 	private float lifeExpectancy;
 	protected int currentAge = 0;
 	protected static int vitalNecesity = 100;
+	Behaviour behaviour;
+	// patron observer
 	PropertyChangeSupport propertyAdultChangeSupport;
 	PropertyChangeSupport propertyAncientChangeSupport;
+	// patron observer
 
 	public Being(float lifeExpectancy) {
 		super();
 		this.lifeExpectancy = lifeExpectancy;
-		setBehaviour();
-		propertyAdultChangeSupport=new PropertyChangeSupport(this);
-		propertyAncientChangeSupport=new PropertyChangeSupport(this);
+		setBehaviour(new YoungBehaviour(this));
+		// patron observer
+		propertyAdultChangeSupport = new PropertyChangeSupport(this);
+		propertyAncientChangeSupport = new PropertyChangeSupport(this);
+		// patron observer
 	}
 
-	
-	
-	public void addPropertyAdultChangeListener(PropertyChangeListener listener) {
+	public Being() {
+		this(calculateLifeExpectancy(minLife, maxLife));
+	}
+
+	// Observer
+	public void addAdultPropertyChangeListener(PropertyChangeListener listener) {
 		propertyAdultChangeSupport.addPropertyChangeListener(listener);
 	}
-	public void addPropertyAncientChangeListener(PropertyChangeListener listener) {
+
+	public void removeAdultPropertyChangeListener(PropertyChangeListener listener) {
+		propertyAdultChangeSupport.removePropertyChangeListener(listener);
+	}
+
+	public void addAncientPropertyChangeListener(PropertyChangeListener listener) {
 		propertyAncientChangeSupport.addPropertyChangeListener(listener);
 	}
 
+	public void removeAncientPropertyChangeListener(PropertyChangeListener listener) {
+		propertyAncientChangeSupport.removePropertyChangeListener(listener);
+	}
 
+	// Observer
+	public void promoteToAdult() {
+		this.propertyAdultChangeSupport.firePropertyChange("adult", null, this);
+	}
 
-	public Being() {
-		super();
-		lifeExpectancy = calculateLifeExpectancy(minLife, maxLife);
-		setBehaviour();
+	public void promoteToAncient() {
+		this.propertyAncientChangeSupport.firePropertyChange("ancient", null, this);
+	}
+
+	public Behaviour getBehaviour() {
+		return behaviour;
+	}
+
+	public void setBehaviour(Behaviour behaviour) {
+		this.behaviour = behaviour;
 	}
 
 	public float getLifeExpectancy() {
@@ -50,7 +77,7 @@ public class Being {
 		this.lifeExpectancy = lifeExpectancy;
 	}
 
-	private int calculateLifeExpectancy(int minimun, int maximum) {
+	private static int calculateLifeExpectancy(int minimun, int maximum) {
 		return Utiles.dameNumero(maximum);
 	}
 
@@ -62,11 +89,8 @@ public class Being {
 		this.currentAge = currentAge;
 	}
 
-	protected boolean aging() {
-		if (isAlive())
-			this.currentAge++;
-		behavior=behavior.check();
-		return isAlive();
+	protected void aging() {
+		this.currentAge++;
 	}
 
 	public boolean isAlive() {
@@ -74,7 +98,12 @@ public class Being {
 	}
 
 	public boolean live(int salary) {
-		return behavior.live(salary);
+		this.aging();
+		behaviour.feed(salary);
+		Optional<CheckableBehaviour> checkable = behaviour.getCheckable();
+		if (checkable.isPresent())
+			checkable.get().checkChangeBehaviour();
+		return isAlive();
 	}
 
 	protected void recalculateLifeExpectancy(int salary) {
@@ -90,35 +119,15 @@ public class Being {
 		}
 	}
 
-	void feed(int salary) {
-		recalculateLifeExpectancy(salary);
-	}
-
 	public boolean becomeOlder() {
-		return isAlive() && currentAge == ancientAge;
+		return isAlive() && currentAge == ANCIENTAGE;
 	}
 
-	boolean isAdultAge() {
-		return currentAge==adultAge;
-	}
-	
-	boolean isAncientAge() {
-		return currentAge==ancientAge;
-	}
-	
 	public boolean becomeAdult() {
-		return isAlive() && currentAge == adultAge;
+		return isAlive() && currentAge == ADULTAGE;
 	}
 
 	public int getVitalNecesity() {
-		return behavior.getVitalNeeds();
+		return vitalNecesity;
 	}
-
-	public Behaviour getBehaviour() {
-		return this.behavior;
-	}
-	private void setBehaviour() {
-		behavior = new Young(this);
-	}
-
 }

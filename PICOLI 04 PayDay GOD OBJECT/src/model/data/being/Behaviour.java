@@ -1,7 +1,8 @@
 package model.data.being;
 
+import java.util.Optional;
+
 public interface Behaviour {
-	public boolean live(int salary);
-	public Behaviour check();
-	public int getVitalNeeds();
+	public void feed(int salary);
+	public Optional<CheckableBehaviour> getCheckable();
 }
