@@ -1,5 +1,7 @@
 package modelo.insectos;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -8,21 +10,26 @@ import modelo.soporte.Alimento;
 
 public class Hormiga {
 
-
+	// observer
+	PropertyChangeSupport pcs;
+	// observer
 	List<Alimento> alimentos;
 	List<Integer> luchas;
-	private final int maxima=50;
-	private int vida = new Random().nextInt(maxima)+1;
+	private final int maxima = 50;
+	private int vida = new Random().nextInt(maxima) + 1;
 	private int edad = 0;
 	public long id;
 	protected int incrementoVidaPorDefecto = 1;
-	private boolean guerrera=false;
+	private boolean guerrera = false;
 
 	public Hormiga(long id) {
 		super();
 		this.id = id;
 		alimentos = new ArrayList();
-		luchas=new ArrayList<>();
+		luchas = new ArrayList<>();
+		// observer
+		pcs = new PropertyChangeSupport(this);
+		// observer
 	}
 
 	public boolean isGuerrera() {
@@ -58,19 +65,32 @@ public class Hormiga {
 	}
 
 	public void hacerTarea() {
-		if(this.isAlive()) {
+		if (this.isAlive()) {
 			if (guerrera) {
-				incrementaEdad(vida/4);
-				int tiempoMaximoLucha=100;
+				incrementaEdad(vida / 4);
+				int tiempoMaximoLucha = 100;
 				luchas.add(new Random().nextInt(tiempoMaximoLucha));
-			}else{
+			} else {
 				incrementaEdad(incrementoVidaPorDefecto);
 				alimentos.add(Alimento.getRandomAlimento());
 			}
-		}else{
-			System.out.println(id+" mori por mi hormiguero");
+		} else {
+			System.out.println(id + " mori por mi hormiguero");
+			pcs.firePropertyChange("muerte", this, this);
 		}
 	};
+
+	// observer
+	// me apunto a tus avisos
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		pcs.addPropertyChangeListener(listener);
+	}
+
+	//me desapunto a tus avisos
+	public void removePropertyChangeListener(PropertyChangeListener listener) {
+		pcs.removePropertyChangeListener(listener);
+	}
+	// observer
 
 	public boolean isAlive() {
 		return vida > edad;
